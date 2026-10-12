@@ -267,6 +267,10 @@ class SiteInstallCommand extends Command
      */
     protected function updateEnvironmentVariables(array $data): void
     {
+        if (app()->environment('testing')) {
+            return;
+        }
+
         $envPath = base_path('.env');
 
         if (!File::exists($envPath)) {
