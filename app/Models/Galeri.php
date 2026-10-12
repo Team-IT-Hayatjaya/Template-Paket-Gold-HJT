@@ -23,6 +23,7 @@ class Galeri extends Model
         'kategori',
         'deskripsi',
         'gambar',
+        'alt_text',
         'tanggal',
         'is_published',
         'created_by',

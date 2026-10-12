@@ -18,6 +18,7 @@ class Banner extends Model
         'judul',
         'deskripsi',
         'gambar',
+        'alt_text',
         'tautan',
         'label_tautan',
         'tipe',

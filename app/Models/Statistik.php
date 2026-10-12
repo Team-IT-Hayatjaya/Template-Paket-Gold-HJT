@@ -25,6 +25,7 @@ class Statistik extends Model
         'sumber',
         'isi',
         'gambar_infografis',
+        'alt_text',
         'berkas_pdf',
         'is_active',
         'urutan',

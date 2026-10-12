@@ -22,6 +22,7 @@ class Halaman extends Model
         'ringkasan',
         'isi',
         'gambar_utama',
+        'alt_text',
         'urutan',
         'is_active',
         'show_in_menu',

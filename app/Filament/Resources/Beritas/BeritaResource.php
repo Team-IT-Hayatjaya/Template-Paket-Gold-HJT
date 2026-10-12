@@ -144,6 +144,13 @@ class BeritaResource extends Resource
                                     ->saveUploadedFileUsing(function ($file) {
                                         return app(ImageConversionService::class)->storeAsWebp($file, 'berita');
                                     }),
+
+                                TextInput::make('alt_text')
+                                    ->label('Teks Alternatif (Alt Text Aksesibilitas)')
+                                    ->required(fn ($get) => !empty($get('gambar_utama')))
+                                    ->placeholder('Deskripsi gambar untuk pembaca tuna netra (WCAG 2.1 AA)...')
+                                    ->helperText('Wajib diisi jika gambar diunggah agar memenuhi standar aksesibilitas disabilitas netra.')
+                                    ->maxLength(255),
                             ]),
                     ]),
                 ]),

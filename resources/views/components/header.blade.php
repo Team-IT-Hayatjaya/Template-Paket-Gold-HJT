@@ -83,7 +83,7 @@
     </div>
 
     <!-- Navigation Bar Desktop -->
-    <nav class="bg-surface-container-lowest shadow-[0_1px_4px_rgba(20,48,79,0.06)] hidden lg:block border-b border-outline-variant/30" aria-label="Navigasi Utama">
+    <nav id="main-navigation" class="bg-surface-container-lowest shadow-[0_1px_4px_rgba(20,48,79,0.06)] hidden lg:block border-b border-outline-variant/30" aria-label="Navigasi Utama">
         <div class="max-w-7xl mx-auto px-margin flex items-center justify-between">
             <div class="flex items-center gap-space-lg py-2 flex-wrap">
                 @if(isset($navigationMenus) && $navigationMenus->isNotEmpty())

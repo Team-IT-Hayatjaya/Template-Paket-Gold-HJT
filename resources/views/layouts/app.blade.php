@@ -38,10 +38,20 @@
     @stack('styles')
 </head>
 <body class="bg-background font-body-md text-on-surface antialiased flex flex-col min-h-full">
-    <!-- Aksesibilitas: Tautan Lompat ke Konten Utama (WCAG AAA) -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-on-primary focus:rounded-lg focus:shadow-xl focus:text-sm focus:font-semibold">
-        Lompat ke Konten Utama &darr;
-    </a>
+    <!-- Aksesibilitas: Tautan Lompat ke Konten Utama & Navigasi (WCAG 2.1 AA) -->
+    <div class="sr-only focus-within:not-sr-only focus-within:fixed focus-within:top-3 focus-within:left-3 focus-within:z-50 focus-within:flex focus-within:gap-2">
+        <a href="#main-content" class="px-4 py-2 bg-primary text-on-primary rounded-lg shadow-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-secondary">
+            Lompat ke Konten Utama &darr;
+        </a>
+        <a href="#main-navigation" class="px-4 py-2 bg-primary text-on-primary rounded-lg shadow-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-secondary">
+            Lompat ke Navigasi Menu &darr;
+        </a>
+        @if(\App\Support\Package::has('accessibility'))
+            <a href="#accessibility-widget-toggle" class="px-4 py-2 bg-secondary text-primary rounded-lg shadow-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary">
+                Lompat ke Alat Aksesibilitas &darr;
+            </a>
+        @endif
+    </div>
 
     <!-- Header Instansi Modular (Top ribbon, Brand, Navigation, Mobile Menu) -->
     <x-header />
@@ -74,6 +84,11 @@
 
     <!-- Footer Instansi Resmi Modular -->
     <x-footer />
+
+    <!-- Widget Aksesibilitas Ramah Disabilitas (WCAG 2.1 AA) -->
+    @if(\App\Support\Package::has('accessibility'))
+        <x-accessibility-widget />
+    @endif
 
     @stack('scripts')
 </body>

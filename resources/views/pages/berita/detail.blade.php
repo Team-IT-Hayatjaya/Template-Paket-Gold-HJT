@@ -49,9 +49,84 @@
             </div>
         </header>
 
+        @if(\App\Support\Package::has('accessibility'))
+            <!-- Pemutar Audio TTS Ramah Disabilitas Netra (Web Speech API) -->
+            <div x-data="{
+                    playing: false,
+                    paused: false,
+                    synth: window.speechSynthesis || null,
+                    utterance: null,
+                    play() {
+                        if (!this.synth) return;
+                        if (this.paused) {
+                            this.synth.resume();
+                            this.paused = false;
+                            this.playing = true;
+                            return;
+                        }
+                        this.synth.cancel();
+                        const title = {{ json_encode($berita['judul']) }};
+                        const bodyEl = document.querySelector('.prose-news');
+                        const content = bodyEl ? bodyEl.innerText : '';
+                        const text = title + '. ' + content;
+                        this.utterance = new SpeechSynthesisUtterance(text);
+                        this.utterance.lang = 'id-ID';
+                        const voices = this.synth.getVoices();
+                        const idVoice = voices.find(v => v.lang.startsWith('id') || v.lang.includes('ID'));
+                        if (idVoice) this.utterance.voice = idVoice;
+                        this.utterance.onstart = () => { this.playing = true; this.paused = false; };
+                        this.utterance.onend = () => { this.playing = false; this.paused = false; };
+                        this.utterance.onerror = () => { this.playing = false; this.paused = false; };
+                        this.synth.speak(this.utterance);
+                    },
+                    pause() {
+                        if (this.synth) { this.synth.pause(); this.paused = true; }
+                    },
+                    stop() {
+                        if (this.synth) { this.synth.cancel(); }
+                        this.playing = false;
+                        this.paused = false;
+                    }
+                 }"
+                 class="p-3.5 mb-space-lg bg-sky-50/80 border border-sky-200 rounded-xl flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[18px]">volume_up</span>
+                    </span>
+                    <div>
+                        <div class="text-xs font-bold text-primary">Dengarkan Berita Ini (Audio TTS)</div>
+                        <div class="text-[10px] text-gray-500">Membaca teks dalam bahasa Indonesia ramah disabilitas netra</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button"
+                            @click="play()"
+                            x-show="!playing || paused"
+                            class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary-container transition flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">play_arrow</span>
+                        <span x-text="paused ? 'Lanjutkan' : 'Dengarkan'"></span>
+                    </button>
+                    <button type="button"
+                            @click="pause()"
+                            x-show="playing && !paused"
+                            class="px-3 py-1.5 bg-amber-600 text-white text-xs font-bold rounded-lg hover:bg-amber-700 transition flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">pause</span>
+                        <span>Jeda</span>
+                    </button>
+                    <button type="button"
+                            @click="stop()"
+                            x-show="playing"
+                            class="px-3 py-1.5 bg-rose-600 text-white text-xs font-bold rounded-lg hover:bg-rose-700 transition flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">stop</span>
+                        <span>Berhenti</span>
+                    </button>
+                </div>
+            </div>
+        @endif
+
         @if(!empty($berita['gambar']))
             <div class="mb-space-lg rounded-xl overflow-hidden max-h-[480px] border border-surface-container shadow-xs">
-                <img src="{{ $berita['gambar'] }}" alt="{{ $berita['judul'] }}" class="w-full h-full object-cover" />
+                <img src="{{ $berita['gambar'] }}" alt="{{ $berita['alt_text'] ?? $berita['judul'] }}" class="w-full h-full object-cover" />
             </div>
         @endif
 

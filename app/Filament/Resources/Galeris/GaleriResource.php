@@ -84,6 +84,13 @@ class GaleriResource extends Resource
                                     ->saveUploadedFileUsing(function ($file) {
                                         return app(ImageConversionService::class)->storeAsWebp($file, 'galeri');
                                     }),
+
+                                TextInput::make('alt_text')
+                                    ->label('Teks Alternatif (Alt Text Aksesibilitas)')
+                                    ->required()
+                                    ->placeholder('Deskripsi gambar untuk pembaca layar tuna netra...')
+                                    ->helperText('Wajib diisi sesuai standar aksesibilitas WCAG 2.1 AA.')
+                                    ->maxLength(255),
                             ]),
                     ]),
 

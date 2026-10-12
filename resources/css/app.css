@@ -75,3 +75,61 @@ html, body {
 button, a, input, select, textarea {
     touch-action: manipulation;
 }
+
+/* ==========================================================================
+   FITUR RAMAH DISABILITAS & AKSESIBILITAS (WCAG 2.1 AA)
+   ========================================================================== */
+
+/* 1. Skala Ukuran Huruf (Font Sizing) */
+html.text-scale-100 { font-size: 100% !important; }
+html.text-scale-115 { font-size: 115% !important; }
+html.text-scale-130 { font-size: 130% !important; }
+html.text-scale-145 { font-size: 145% !important; }
+
+/* 2. Mode Kontras Tinggi (High Contrast Mode - WCAG AAA 7:1) */
+html.high-contrast {
+    filter: contrast(125%);
+    background-color: #000000 !important;
+}
+
+html.high-contrast body,
+html.high-contrast main,
+html.high-contrast section,
+html.high-contrast article,
+html.high-contrast header,
+html.high-contrast footer,
+html.high-contrast div {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+html.high-contrast a {
+    color: #ffff00 !important;
+    text-decoration: underline !important;
+}
+
+html.high-contrast button {
+    border: 2px solid #ffff00 !important;
+    color: #ffffff !important;
+}
+
+html.high-contrast input,
+html.high-contrast textarea,
+html.high-contrast select {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+}
+
+/* 3. Mode Monokrom (Grayscale) */
+html.grayscale-mode {
+    filter: grayscale(100%) !important;
+}
+
+/* 4. Highlight Kalimat yang Sedang Dibacakan TTS */
+.tts-reading-highlight {
+    background-color: rgba(254, 240, 138, 0.6) !important;
+    outline: 2px solid #ca8a04 !important;
+    border-radius: 4px;
+}

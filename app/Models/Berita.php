@@ -22,6 +22,7 @@ class Berita extends Model
         'ringkasan',
         'isi',
         'gambar_utama',
+        'alt_text',
         'kategori',
         'tags',
         'status',

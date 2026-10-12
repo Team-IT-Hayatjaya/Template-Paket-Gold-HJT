@@ -80,6 +80,13 @@ class BannerResource extends Resource
                                     ->saveUploadedFileUsing(function ($file) {
                                         return app(ImageConversionService::class)->storeAsWebp($file, 'banners');
                                     }),
+
+                                TextInput::make('alt_text')
+                                    ->label('Teks Alternatif (Alt Text Aksesibilitas)')
+                                    ->required(fn ($get) => !empty($get('gambar')))
+                                    ->placeholder('Deskripsi visual gambar banner untuk pembaca tuna netra...')
+                                    ->helperText('Wajib diisi sesuai standar WCAG 2.1 AA.')
+                                    ->maxLength(255),
                             ]),
                     ]),
 

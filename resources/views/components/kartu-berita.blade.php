@@ -24,7 +24,7 @@
     <a href="{{ $linkUrl }}" class="block aspect-video overflow-hidden relative bg-surface-container-low" aria-label="Baca berita: {{ $judul }}">
         <img 
             src="{{ $gambar }}" 
-            alt="Thumbnail {{ $judul }}" 
+            alt="{{ $berita['alt_text'] ?? ('Foto artikel: ' . $judul) }}" 
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
         />
