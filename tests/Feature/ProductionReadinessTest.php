@@ -179,8 +179,8 @@ test('jadwal backup mengikuti frekuensi paket aktif pada config packages', funct
     config(['packages.default' => 'platinum']);
     expect(Package::limit('backup_frequency'))->toBe('daily');
 
-    // Kembalikan ke silver
-    config(['packages.default' => 'silver']);
+    // Kembalikan ke paket bawaan
+    config(['packages.default' => env('SITE_PACKAGE', 'gold')]);
 });
 
 /*

@@ -374,6 +374,8 @@ test('pada paket silver fitur pelacakan publik dinonaktifkan dengan 403', functi
 
     $response = $this->get(route('ppid.lacak'));
     $response->assertStatus(403);
+
+    config(['packages.default' => env('SITE_PACKAGE', 'gold')]);
 });
 
 /*

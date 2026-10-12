@@ -2,6 +2,10 @@
 
 use App\Support\Package;
 
+afterEach(function () {
+    config(['packages.default' => env('SITE_PACKAGE', 'gold')]);
+});
+
 test('default package reads gold from environment or config', function () {
     expect(Package::current())->toBe('gold');
     expect(Package::is('gold'))->toBeTrue();

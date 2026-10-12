@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "hjt/portal-instansi-gold",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Portal Resmi Instansi Pemerintah — Paket Gold (berasal dari rilis silver-v1.0).",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
@@ -68,7 +68,7 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php -r \"file_exists('database/database_gold.sqlite') || touch('database/database_gold.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
         "pre-package-uninstall": [

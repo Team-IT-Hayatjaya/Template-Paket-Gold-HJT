@@ -9,10 +9,10 @@ class Package
      */
     public static function current(): string
     {
-        $package = strtolower((string) config('packages.default', 'silver'));
+        $package = strtolower((string) config('packages.default', 'gold'));
 
         if (! array_key_exists($package, config('packages.packages', []))) {
-            return 'silver';
+            return 'gold';
         }
 
         return $package;

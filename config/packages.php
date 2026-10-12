@@ -9,7 +9,7 @@ return [
     | Read from SITE_PACKAGE environment variable (silver, gold, platinum).
     |
     */
-    'default' => env('SITE_PACKAGE', 'silver'),
+    'default' => env('SITE_PACKAGE', 'gold'),
 
     /*
     |--------------------------------------------------------------------------

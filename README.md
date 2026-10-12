@@ -1,11 +1,17 @@
-# Template Website Instansi Pemerintah — PT Hayat Jaya Teknologi (HJT)
+# Portal Resmi Instansi Pemerintah — Paket GOLD (HJT)
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.3%20%7C%208.4-777bb4.svg)](https://php.net)
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-ff2d20.svg)](https://laravel.com)
 [![Filament](https://img.shields.io/badge/Filament-3.x%20%2F%205.x-ea580c.svg)](https://filamentphp.com)
+[![Paket](https://img.shields.io/badge/Tier-GOLD-amber.svg)]()
+[![Base Tag](https://img.shields.io/badge/Base-silver--v1.0-blue.svg)]()
 [![License](https://img.shields.io/badge/License-Proprietary-blue.svg)]()
 
-Template situs resmi instansi pemerintah (Kecamatan, Dinas, Pemkab/Pemkot, Provinsi) yang dirancang untuk implementasi cepat, aman, memenuhi standar aksesibilitas, dan patuh penuh terhadap **Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik (UU KIP)**.
+> **Informasi Silsilah & Isolasi Proyek:**  
+> Proyek repositori ini adalah varian **Paket GOLD** dari PT Hayat Jaya Teknologi (HJT) yang dikembangkan dari basis rilis beku **`silver-v1.0`** (Paket Silver).  
+> Repositori ini berjalan pada cabang `gold` dan menggunakan basis data mandiri (`database_gold.sqlite`), konfigurasi sesi terisolasi (`SESSION_COOKIE=hjt_gold_session`), serta cache terpisah (`CACHE_PREFIX=hjt_gold_cache`) untuk menjamin tidak ada tumpang tindih data dengan repositori Silver bila berjalan bersamaan.
+
+Portal resmi instansi pemerintah (Kecamatan, Dinas, Pemkab/Pemkot, Provinsi) Paket Gold yang dirancang untuk implementasi cepat, aman, memenuhi standar aksesibilitas, dilengkapi fitur pelacakan PPID mandiri, dan patuh penuh terhadap **Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik (UU KIP)**.
 
 ---
 

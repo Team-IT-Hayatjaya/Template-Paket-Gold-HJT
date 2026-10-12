@@ -33,8 +33,13 @@ class AdminPanelProvider extends PanelProvider
             ->multiFactorAuthentication([
                 AppAuthentication::make(),
             ], isRequired: false)
-            ->brandName(fn () => 'Panel Admin Instansi — Paket ' . strtoupper(config('packages.active', config('packages.default', 'gold'))))
+            ->brandName(function () {
+                $pkg = strtoupper(config('packages.default', 'gold'));
+                $prefix = $pkg === 'GOLD' ? '⭐ ' : ($pkg === 'PLATINUM' ? '💎 ' : '');
+                return "Panel Admin Instansi — {$prefix}Paket {$pkg}";
+            })
             ->renderHook(PanelsRenderHook::USER_MENU_BEFORE, fn () => view('filament.components.package-badge'))
+            ->renderHook(PanelsRenderHook::FOOTER, fn () => view('filament.components.package-footer'))
             ->colors([
                 'primary' => [
                     50 => '238, 244, 255',
