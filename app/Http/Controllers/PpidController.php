@@ -124,12 +124,85 @@ class PpidController extends Controller
     /**
      * Halaman Pelacakan Publik (Fitur Gold & Platinum).
      */
-    public function lacak()
+    public function lacak(Request $request)
     {
         if (!Package::has('ppid_tracking')) {
             abort(403, 'Fitur pelacakan publik mandiri tidak aktif pada paket ini. Tanggapan permohonan dikirimkan melalui email resmi.');
         }
 
-        return view('pages.ppid.lacak');
+        $permohonan = null;
+        $searched = false;
+        $errorMessage = null;
+
+        $nomor = trim((string) $request->input('nomor_registrasi', ''));
+        $email = trim((string) $request->input('email', ''));
+
+        if ($request->isMethod('post') || ($nomor !== '' && $email !== '')) {
+            $searched = true;
+
+            $request->validate([
+                'nomor_registrasi' => ['required', 'string', 'max:100'],
+                'email' => ['required', 'email', 'max:255'],
+            ], [
+                'nomor_registrasi.required' => 'Nomor registrasi wajib diisi.',
+                'email.required' => 'Alamat email wajib diisi untuk verifikasi keamanan resi.',
+                'email.email' => 'Format email tidak valid.',
+            ]);
+
+            $permohonan = PermohonanInformasi::with('status')
+                ->where('nomor_registrasi', $nomor)
+                ->where('email', $email)
+                ->first();
+
+            if (!$permohonan) {
+                $errorMessage = 'Data permohonan tidak ditemukan. Pastikan kombinasi Nomor Registrasi dan Alamat Email sesuai dengan tanda terima pengajuan resmi Anda.';
+            }
+        }
+
+        // Siapkan signed URL untuk unduhan dokumen jawaban jika tersedia
+        $signedDownloadUrl = null;
+        if ($permohonan && !empty($permohonan->jawaban_file_path)) {
+            $signedDownloadUrl = \Illuminate\Support\Facades\URL::temporarySignedRoute(
+                'ppid.download-jawaban',
+                now()->addHours(24),
+                ['permohonan' => $permohonan->id]
+            );
+        }
+
+        return view('pages.ppid.lacak', compact(
+            'permohonan',
+            'searched',
+            'errorMessage',
+            'nomor',
+            'email',
+            'signedDownloadUrl'
+        ));
+    }
+
+    /**
+     * Unduh berkas dokumen jawaban resmi lewat tautan bertanda tangan (Signed URL).
+     */
+    public function downloadJawaban(Request $request, PermohonanInformasi $permohonan)
+    {
+        if (!Package::has('ppid_tracking')) {
+            abort(403, 'Fitur pelacakan publik mandiri tidak aktif pada paket ini.');
+        }
+
+        if (!$request->hasValidSignature()) {
+            abort(401, 'Tautan unduhan tidak valid atau telah kedaluwarsa. Silakan lakukan pelacakan ulang untuk mendapatkan tautan baru.');
+        }
+
+        if (empty($permohonan->jawaban_file_path)) {
+            abort(404, 'Berkas dokumen jawaban resmi belum tersedia.');
+        }
+
+        if (!Storage::disk('private')->exists($permohonan->jawaban_file_path)) {
+            abort(404, 'Berkas jawaban tidak ditemukan di penyimpanan server.');
+        }
+
+        $ext = pathinfo($permohonan->jawaban_file_path, PATHINFO_EXTENSION) ?: 'pdf';
+        $downloadName = 'Jawaban-PPID-' . \Illuminate\Support\Str::slug($permohonan->nomor_registrasi) . '.' . $ext;
+
+        return Storage::disk('private')->download($permohonan->jawaban_file_path, $downloadName);
     }
 }

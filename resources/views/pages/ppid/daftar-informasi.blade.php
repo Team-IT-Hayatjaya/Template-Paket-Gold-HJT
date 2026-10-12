@@ -28,11 +28,17 @@
             </p>
         </div>
 
-        <div class="flex items-center gap-space-sm shrink-0">
+        <div class="flex items-center gap-space-sm shrink-0 flex-wrap">
             <a href="{{ route('ppid.permohonan') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-on-primary font-semibold text-sm shadow-xs hover:bg-primary-container transition">
                 <span class="material-symbols-outlined text-[18px]">edit_document</span>
                 <span>Ajukan Permohonan Informasi</span>
             </a>
+            @if(\App\Support\Package::has('ppid_tracking'))
+                <a href="{{ route('ppid.lacak') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-container text-primary font-semibold text-sm border border-surface-container transition">
+                    <span class="material-symbols-outlined text-[18px]">travel_explore</span>
+                    <span>Lacak Resi Online</span>
+                </a>
+            @endif
         </div>
     </section>
 

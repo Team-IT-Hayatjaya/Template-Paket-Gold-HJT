@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Mail\PermohonanJawabanMail;
 use App\Mail\PermohonanKonfirmasiMail;
+use App\Mail\StatusPermohonanUpdatedMail;
 use App\Models\PermohonanInformasi;
 use App\Models\StatusPermohonan;
 use Illuminate\Http\UploadedFile;
@@ -90,16 +91,32 @@ class PpidService
 
         $permohonan->refresh();
 
-        // Kirim email tanggapan resmi jika status dijawab / ditolak
+        // Kirim email notifikasi resmi sesuai status
+        $this->kirimNotifikasiStatus($permohonan, $data['catatan_internal'] ?? null);
+
+        return $permohonan;
+    }
+
+    /**
+     * Kirim email pemberitahuan setiap ada perubahan status permohonan.
+     */
+    public function kirimNotifikasiStatus(PermohonanInformasi $permohonan, ?string $keterangan = null): void
+    {
+        $permohonan->loadMissing('status');
         $statusSlug = $permohonan->status?->slug;
+
         if (in_array($statusSlug, ['dijawab', 'ditolak', 'selesai'])) {
             try {
                 Mail::to($permohonan->email)->send(new PermohonanJawabanMail($permohonan));
             } catch (\Throwable $e) {
                 Log::warning("Gagal mengirim email jawaban PPID: {$e->getMessage()}");
             }
+        } else {
+            try {
+                Mail::to($permohonan->email)->send(new StatusPermohonanUpdatedMail($permohonan, $keterangan));
+            } catch (\Throwable $e) {
+                Log::warning("Gagal mengirim email pembaruan status PPID: {$e->getMessage()}");
+            }
         }
-
-        return $permohonan;
     }
 }

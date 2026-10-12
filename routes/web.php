@@ -44,7 +44,15 @@ Route::get('/ppid/permohonan', [PpidController::class, 'formPermohonan'])->name(
 Route::post('/ppid/permohonan', [PpidController::class, 'kirimPermohonan'])
     ->middleware('throttle:10,1')
     ->name('ppid.kirim-permohonan');
-Route::get('/ppid/lacak', [PpidController::class, 'lacak'])->name('ppid.lacak');
+// Pelacakan Status Permohonan PPID Mandiri (Tracking Resi Online)
+Route::match(['get', 'post'], '/ppid/lacak', [PpidController::class, 'lacak'])
+    ->middleware('throttle:30,1')
+    ->name('ppid.lacak');
+
+// Unduh berkas dokumen jawaban resmi lewat tautan bertanda tangan (Signed URL)
+Route::get('/ppid/permohonan/{permohonan}/download-jawaban', [PpidController::class, 'downloadJawaban'])
+    ->middleware('signed')
+    ->name('ppid.download-jawaban');
 
 // Unduh berkas identitas privat pemohon PPID (Khusus Petugas PPID & Super Admin)
 Route::get('/admin/permohonan/{permohonan}/identitas', [PpidController::class, 'downloadIdentitas'])

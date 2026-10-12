@@ -61,12 +61,16 @@ class NavigationMenuSeeder extends Seeder
                 'urutan' => 5,
                 'target' => '_self',
                 'is_active' => true,
-                'submenus' => [
+                'submenus' => array_merge([
                     ['nama' => 'Daftar Informasi Publik', 'url' => '/ppid/daftar-informasi', 'urutan' => 1],
                     ['nama' => 'Laporan Keuangan', 'url' => '/halaman/laporan-keuangan', 'urutan' => 2],
                     ['nama' => 'Formulir Permohonan', 'url' => '/ppid/permohonan', 'urutan' => 3],
+                ], \App\Support\Package::has('ppid_tracking') ? [
+                    ['nama' => 'Lacak Resi Permohonan', 'url' => '/ppid/lacak', 'urutan' => 4],
+                    ['nama' => 'Profil PPID', 'url' => '/halaman/profil-ppid', 'urutan' => 5],
+                ] : [
                     ['nama' => 'Profil PPID', 'url' => '/halaman/profil-ppid', 'urutan' => 4],
-                ],
+                ]),
             ],
             [
                 'nama' => 'Data & Statistik',

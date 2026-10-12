@@ -29,6 +29,16 @@
                 <p class="text-xs text-gray-600 mt-2">
                     Bukti konfirmasi lengkap beserta tenggat respons 10 hari kerja telah dikirimkan ke email Anda. Mohon simpan nomor ini untuk keperluan tindak lanjut resmi.
                 </p>
+                @if(\App\Support\Package::has('ppid_tracking'))
+                    <div class="mt-3 pt-3 border-t border-emerald-100 flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-xs text-emerald-800">Pantau proses tindak lanjut permohonan secara real-time:</span>
+                        <a href="{{ route('ppid.lacak', ['nomor_registrasi' => session('nomor_registrasi')]) }}"
+                           class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary hover:bg-primary-container text-on-primary text-xs font-bold rounded-xl transition shadow-xs">
+                            <span class="material-symbols-outlined text-[16px]">travel_explore</span>
+                            <span>Lacak Status Resi Sekarang &rarr;</span>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     @endif

@@ -20,19 +20,13 @@ class EditPermohonanInformasi extends EditRecord
     protected function afterSave(): void
     {
         $record = $this->getRecord();
+        $record->loadMissing('status');
         $statusSlug = $record->status?->slug;
 
-        if (in_array($statusSlug, ['dijawab', 'ditolak', 'selesai'])) {
-            if (!$record->tanggal_dijawab) {
-                $record->update(['tanggal_dijawab' => now()]);
-            }
-
-            try {
-                \Illuminate\Support\Facades\Mail::to($record->email)
-                    ->send(new \App\Mail\PermohonanJawabanMail($record));
-            } catch (\Throwable $e) {
-                \Illuminate\Support\Facades\Log::warning("Gagal mengirim email jawaban: {$e->getMessage()}");
-            }
+        if (in_array($statusSlug, ['dijawab', 'ditolak', 'selesai']) && !$record->tanggal_dijawab) {
+            $record->update(['tanggal_dijawab' => now()]);
         }
+
+        app(\App\Services\PpidService::class)->kirimNotifikasiStatus($record, $record->catatan_internal);
     }
 }
