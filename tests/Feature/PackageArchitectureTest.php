@@ -2,9 +2,9 @@
 
 use App\Support\Package;
 
-test('default package reads silver from environment or config', function () {
-    expect(Package::current())->toBe('silver');
-    expect(Package::is('silver'))->toBeTrue();
+test('default package reads gold from environment or config', function () {
+    expect(Package::current())->toBe('gold');
+    expect(Package::is('gold'))->toBeTrue();
 });
 
 test('silver tier features and quotas are correctly evaluated', function () {

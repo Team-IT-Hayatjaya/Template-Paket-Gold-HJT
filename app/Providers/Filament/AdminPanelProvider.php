@@ -10,6 +10,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -32,7 +33,8 @@ class AdminPanelProvider extends PanelProvider
             ->multiFactorAuthentication([
                 AppAuthentication::make(),
             ], isRequired: false)
-            ->brandName('Panel Admin Instansi')
+            ->brandName(fn () => 'Panel Admin Instansi — Paket ' . strtoupper(config('packages.active', config('packages.default', 'gold'))))
+            ->renderHook(PanelsRenderHook::USER_MENU_BEFORE, fn () => view('filament.components.package-badge'))
             ->colors([
                 'primary' => [
                     50 => '238, 244, 255',
