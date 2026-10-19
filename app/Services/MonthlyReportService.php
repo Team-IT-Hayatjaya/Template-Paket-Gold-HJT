@@ -87,6 +87,7 @@ class MonthlyReportService
         $totalContentUpdates = $updatesBerita + $updatesHalaman + $updatesDokumen + $updatesGaleri;
 
         $contentQuotaLimit = Package::limit('content_updates_per_month');
+        $contentQuotaUsed = app(ContentQuotaService::class)->getMonthlyUpdatesCount($startDate);
 
         // 4. Permohonan Informasi PPID dan Statusnya
         $totalPermohonan = PermohonanInformasi::whereBetween('created_at', [$startDate, $endDate])->count();
@@ -130,7 +131,10 @@ class MonthlyReportService
                 'dokumen' => $updatesDokumen,
                 'galeri' => $updatesGaleri,
                 'quota_limit' => $contentQuotaLimit,
+                'quota_used' => $contentQuotaUsed,
             ],
+            // Paket Gold: seksi keamanan (null pada Silver sehingga tidak dirender)
+            'security' => app(SecurityReportService::class)->summary($startDate, $endDate),
             'permohonan' => [
                 'total' => $totalPermohonan,
                 'dijawab' => $dijawabCount,

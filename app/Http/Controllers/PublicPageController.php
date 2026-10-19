@@ -192,7 +192,13 @@ class PublicPageController extends Controller
         $daftarStatistik = $query->paginate(10)->withQueryString();
 
         $kategoriList = ['Kependudukan', 'Sosial & Ekonomi', 'Pendidikan', 'Kesehatan', 'Pertanian & Perikanan', 'Infrastruktur'];
-        $tahunList = Statistik::active()->distinct()->orderBy('tahun', 'desc')->pluck('tahun')->toArray();
+        $tahunList = Statistik::where('is_active', true)
+            ->distinct()
+            ->pluck('tahun')
+            ->filter()
+            ->sortDesc()
+            ->values()
+            ->toArray();
         if (empty($tahunList)) {
             $tahunList = [(int) date('Y'), (int) date('Y') - 1];
         }

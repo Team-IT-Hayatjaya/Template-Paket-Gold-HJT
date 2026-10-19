@@ -1,36 +1,4 @@
 <header class="w-full z-50 shadow-[0_2px_8px_rgba(20,48,79,0.12)] sticky top-0" x-data="{ mobileOpen: false }">
-    <!-- Top Ribbon Resmi: Kontak & Jam Layanan -->
-    <div class="bg-primary-container text-on-primary py-space-xs border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-xs font-label-sm text-label-sm">
-            <div class="flex items-center gap-space-lg flex-wrap justify-center text-xs">
-                <div class="flex items-center gap-space-xs text-on-primary">
-                    <span class="material-symbols-outlined text-[16px] text-secondary-fixed">schedule</span>
-                    <span>{{ $siteSetting->service_hours ? Str::limit(explode("\n", $siteSetting->service_hours)[0], 35) : 'Senin - Jumat: 08.00 - 15.30 WITA' }}</span>
-                </div>
-                @if(!empty($siteSetting->phone))
-                    <div class="hidden sm:flex items-center gap-space-xs text-on-primary">
-                        <span class="material-symbols-outlined text-[16px] text-secondary-fixed">call</span>
-                        <span>Telp: {{ $siteSetting->phone }}</span>
-                    </div>
-                @endif
-                <div class="flex items-center gap-space-xs text-on-primary">
-                    <span class="material-symbols-outlined text-[16px] text-secondary-fixed">verified</span>
-                    <span>Keterbukaan UU No. 14/2008</span>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-space-md text-xs">
-                <a class="text-on-primary hover:text-secondary-fixed transition-colors flex items-center gap-space-xs" href="https://lapor.go.id" rel="noopener" target="_blank">
-                    <span class="material-symbols-outlined text-[14px]">open_in_new</span>SP4N LAPOR!
-                </a>
-                <span class="text-on-primary-container">•</span>
-                <a class="text-on-primary hover:text-secondary-fixed transition-colors flex items-center gap-space-xs" href="{{ url('/admin') }}">
-                    <span class="material-symbols-outlined text-[14px]">lock</span>Panel Admin
-                </a>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Header Instansi: Lambang Daerah & Identitas -->
     <div class="bg-primary text-on-primary">
         <div class="h-20 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-4">
@@ -38,6 +6,8 @@
             <a href="{{ route('home') }}" class="flex items-center gap-space-md text-inherit no-underline min-w-0">
                 @if(!empty($siteSetting->logo_path))
                     <img src="{{ asset('storage/' . $siteSetting->logo_path) }}" alt="Logo {{ $siteSetting->institution_name }}" class="h-12 w-auto object-contain shrink-0" />
+                @elseif(file_exists(public_path('images/logo-kukar.png')))
+                    <img src="{{ asset('images/logo-kukar.png') }}" alt="Lambang Kabupaten Kutai Kartanegara" class="h-12 w-12 object-contain shrink-0 rounded-full bg-white/10 p-0.5" />
                 @else
                     <div class="w-11 h-11 rounded-lg bg-secondary flex items-center justify-center text-primary font-bold shadow-inner shrink-0">
                         <span class="material-symbols-outlined text-[28px] text-primary">account_balance</span>
@@ -242,12 +212,6 @@
                     📍 Kontak &amp; Lokasi
                 </a>
             @endif
-
-            <div class="pt-3 border-t border-outline-variant/30 mt-2 flex flex-col gap-2">
-                <a href="{{ url('/admin') }}" class="w-full text-center py-2 text-xs font-semibold rounded-lg bg-primary text-on-primary">
-                    🔒 Masuk Panel Admin
-                </a>
-            </div>
         </div>
     </div>
 </header>

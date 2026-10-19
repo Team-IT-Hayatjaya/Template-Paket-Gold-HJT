@@ -37,11 +37,27 @@ class PermohonanInformasiResource extends Resource
 
     protected static string | \UnitEnum | null $navigationGroup = 'Layanan PPID';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationLabel = 'Permohonan Informasi';
 
     protected static ?string $modelLabel = 'Permohonan Informasi';
 
     protected static ?string $pluralModelLabel = 'Daftar Permohonan Informasi Publik';
+
+    public static function getNavigationBadge(): ?string
+    {
+        $count = PermohonanInformasi::whereHas('status', function ($query) {
+            $query->whereIn('slug', ['menunggu', 'diproses']);
+        })->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
 
     public static function form(Schema $schema): Schema
     {

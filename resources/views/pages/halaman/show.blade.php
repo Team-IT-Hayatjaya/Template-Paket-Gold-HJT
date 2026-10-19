@@ -61,6 +61,52 @@
                 </div>
             @endif
 
+            @if(!empty($halaman->berkas_pdf))
+                <!-- Toolbar Aksi Berkas PDF -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-surface-container-low p-3.5 rounded-xl border border-surface-container">
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        </span>
+                        <div>
+                            <span class="text-xs font-bold text-primary block">Dokumen Resmi Digital</span>
+                            <span class="text-[11px] text-on-surface-variant">Tersedia untuk dibaca langsung dan diunduh</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <a href="{{ asset('storage/' . $halaman->berkas_pdf) }}" 
+                           target="_blank" 
+                           download 
+                           class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container text-xs font-bold shadow-xs transition">
+                            <span class="material-symbols-outlined text-[16px]">download</span>
+                            <span>Unduh Dokumen PDF</span>
+                        </a>
+                        <a href="{{ asset('storage/' . $halaman->berkas_pdf) }}" 
+                           target="_blank" 
+                           rel="noopener"
+                           class="inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-surface-container-high hover:bg-surface-container text-primary text-xs font-bold transition border border-surface-container">
+                            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                            <span class="hidden sm:inline">Buka Tab Penuh</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Penampil Isi PDF Interaktif (Embedded PDF Viewer) -->
+                <div class="rounded-xl overflow-hidden border-2 border-surface-container shadow-md bg-slate-100">
+                    <object data="{{ asset('storage/' . $halaman->berkas_pdf) }}#toolbar=1&navpanes=0&view=FitH" 
+                            type="application/pdf" 
+                            class="w-full h-[750px] sm:h-[880px] rounded-xl">
+                        <iframe src="{{ asset('storage/' . $halaman->berkas_pdf) }}#toolbar=1&navpanes=0&view=FitH" 
+                                class="w-full h-[750px] sm:h-[880px] border-0 rounded-xl"
+                                title="{{ $halaman->judul }}">
+                            <div class="p-6 text-center text-xs text-on-surface-variant">
+                                Penampil PDF tidak didukung pada peramban ini. <a href="{{ asset('storage/' . $halaman->berkas_pdf) }}" download class="text-primary font-bold underline">Klik di sini untuk mengunduh berkas PDF</a>.
+                            </div>
+                        </iframe>
+                    </object>
+                </div>
+            @endif
+
             <!-- Body Text / Rich HTML -->
             <div class="prose prose-slate max-w-none text-on-surface leading-relaxed space-y-4 font-body-lg text-body-lg">
                 {!! $halaman->isi !!}

@@ -33,11 +33,13 @@ class DokumenInformasiResource extends Resource
 {
     protected static ?string $model = DokumenInformasi::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-folder-arrow-down';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-archive-box';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Konten';
+    protected static string | \UnitEnum | null $navigationGroup = 'Layanan PPID';
 
-    protected static ?string $navigationLabel = 'Dokumen Informasi & PPID';
+    protected static ?int $navigationSort = 3;
+
+    protected static ?string $navigationLabel = 'Daftar Informasi Publik (DIP)';
 
     protected static ?string $modelLabel = 'Dokumen Informasi';
 

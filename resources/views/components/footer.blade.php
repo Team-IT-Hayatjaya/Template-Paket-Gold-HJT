@@ -6,6 +6,8 @@
                 <div class="flex items-center gap-space-sm">
                     @if(!empty($siteSetting->logo_path))
                         <img src="{{ asset('storage/' . $siteSetting->logo_path) }}" alt="Logo {{ $siteSetting->institution_name }}" class="h-10 w-auto object-contain shrink-0" />
+                    @elseif(file_exists(public_path('images/logo-kukar.png')))
+                        <img src="{{ asset('images/logo-kukar.png') }}" alt="Lambang Daerah" class="h-10 w-10 object-contain shrink-0 rounded-full bg-white/10 p-0.5" />
                     @else
                         <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-primary font-bold shrink-0">
                             <span class="material-symbols-outlined text-[24px]">account_balance</span>

@@ -31,15 +31,17 @@ class HalamanResource extends Resource
 {
     protected static ?string $model = Halaman::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-document-text';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-document-duplicate';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Konten';
+    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Informasi';
 
-    protected static ?string $navigationLabel = 'Halaman Statis';
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationLabel = 'Halaman Profil & Statis';
 
     protected static ?string $modelLabel = 'Halaman';
 
-    protected static ?string $pluralModelLabel = 'Halaman Statis';
+    protected static ?string $pluralModelLabel = 'Halaman Profil & Statis';
 
     public static function form(Schema $schema): Schema
     {
@@ -126,6 +128,17 @@ class HalamanResource extends Resource
                                     ->saveUploadedFileUsing(function ($file) {
                                         return app(ImageConversionService::class)->storeAsWebp($file, 'halaman');
                                     }),
+                            ]),
+                        Section::make('Lampiran Dokumen PDF Resmi')
+                            ->description('Tampilkan berkas PDF langsung di dalam halaman')
+                            ->schema([
+                                FileUpload::make('berkas_pdf')
+                                    ->label('Berkas PDF Resmi')
+                                    ->acceptedFileTypes(['application/pdf'])
+                                    ->disk('public')
+                                    ->directory('dokumen-halaman')
+                                    ->maxSize(15360)
+                                    ->helperText('Jika diisi, isi dokumen PDF akan langsung dimunculkan di halaman publik.'),
                             ]),
                     ]),
                 ]),

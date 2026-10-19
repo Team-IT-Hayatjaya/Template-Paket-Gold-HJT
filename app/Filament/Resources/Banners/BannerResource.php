@@ -35,7 +35,9 @@ class BannerResource extends Resource
 
     protected static string | \UnitEnum | null $navigationGroup = 'Tampilan & Navigasi';
 
-    protected static ?string $navigationLabel = 'Banner & Slider';
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationLabel = 'Banner & Pengumuman';
 
     protected static ?string $modelLabel = 'Banner';
 

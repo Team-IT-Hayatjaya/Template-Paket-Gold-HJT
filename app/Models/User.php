@@ -51,6 +51,8 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_secret' => 'encrypted',
+            'locked_until' => 'datetime',
+            'failed_login_attempts' => 'integer',
         ];
     }
 
@@ -69,6 +71,14 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
         }
 
         return false;
+    }
+
+    /**
+     * Akun sedang dikunci sementara akibat percobaan login gagal (paket Gold).
+     */
+    public function isLocked(): bool
+    {
+        return $this->locked_until !== null && $this->locked_until->isFuture();
     }
 
     /**
@@ -101,5 +111,52 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
             ->logOnlyDirty()
             ->useLogName('user_management')
             ->setDescriptionForEvent(fn (string $eventName) => "Pengguna {$this->email} {$eventName}");
+    }
+
+    /**
+     * Relasi ORM: Berita yang ditulis / diunggah oleh pengguna ini.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Berita>
+     */
+    public function berita(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Berita::class, 'author_id');
+    }
+
+    /**
+     * Relasi ORM: Daftar IP yang diblokir oleh pengguna ini.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\IpBlocklist>
+     */
+    public function ipBlocklists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(IpBlocklist::class, 'created_by');
+    }
+
+    /**
+     * Relasi ORM: Log aktivitas audit trail yang dilakukan oleh pengguna ini.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\Spatie\Activitylog\Models\Activity>
+     */
+    public function activityLogs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\Spatie\Activitylog\Models\Activity::class, 'causer_id')
+            ->where('causer_type', static::class);
+    }
+
+    /**
+     * Helper: Pengguna merupakan Super Admin.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole('Super Admin');
+    }
+
+    /**
+     * Helper: Pengguna memiliki hak penanganan PPID.
+     */
+    public function isPetugasPpid(): bool
+    {
+        return $this->hasAnyRole(['Petugas PPID', 'Atasan PPID', 'Super Admin']);
     }
 }

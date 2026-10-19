@@ -92,6 +92,13 @@
                             </div>
                         @endif
 
+                        @if(!empty($stat->data_grafik))
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 text-amber-800 border border-amber-200/60 text-[11px] font-bold">
+                                <span class="material-symbols-outlined text-[15px] text-amber-600">query_stats</span>
+                                <span>Tersedia Grafik {{ strtoupper($stat->tipe_grafik ?? 'BAR') }}</span>
+                            </div>
+                        @endif
+
                         @if(!empty($stat->gambar_infografis))
                             <div class="pt-1">
                                 <img src="{{ asset('storage/' . $stat->gambar_infografis) }}" alt="{{ $stat->judul }}" class="w-full h-36 object-cover rounded-lg border border-surface-container" loading="lazy">
@@ -99,18 +106,27 @@
                         @endif
                     </div>
 
-                    <div class="pt-3 border-t border-surface-container flex items-center justify-between text-xs">
+                    <div class="pt-3 border-t border-surface-container flex items-center justify-between text-xs flex-wrap gap-2">
                         <a href="{{ route('statistik.detail', $stat->slug) }}" class="inline-flex items-center gap-1 font-bold text-primary hover:text-secondary transition-colors">
-                            <span>Buka Tabel Data Lengkap</span>
+                            <span>Lihat Grafik &amp; Tabel Data</span>
                             <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                         </a>
 
-                        @if(!empty($stat->berkas_pdf))
-                            <a href="{{ asset('storage/' . $stat->berkas_pdf) }}" target="_blank" download class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container-high text-primary hover:bg-primary hover:text-on-primary transition text-[11px] font-bold">
-                                <span class="material-symbols-outlined text-[14px]">download</span>
-                                <span>PDF</span>
-                            </a>
-                        @endif
+                        <div class="flex items-center gap-1.5">
+                            @if(!empty($stat->berkas_spreadsheet))
+                                <a href="{{ asset('storage/' . $stat->berkas_spreadsheet) }}" target="_blank" download class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 hover:bg-emerald-700 hover:text-white transition text-[11px] font-bold" title="Unduh Berkas Excel">
+                                    <span class="material-symbols-outlined text-[14px]">table_view</span>
+                                    <span>Excel</span>
+                                </a>
+                            @endif
+
+                            @if(!empty($stat->berkas_pdf))
+                                <a href="{{ asset('storage/' . $stat->berkas_pdf) }}" target="_blank" download class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container-high text-primary hover:bg-primary hover:text-on-primary transition text-[11px] font-bold" title="Unduh Berkas PDF">
+                                    <span class="material-symbols-outlined text-[14px]">download</span>
+                                    <span>PDF</span>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </article>
             @empty

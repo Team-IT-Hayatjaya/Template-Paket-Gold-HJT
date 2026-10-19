@@ -37,9 +37,11 @@ class GaleriResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-photo';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Konten';
+    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Informasi';
 
-    protected static ?string $navigationLabel = 'Galeri & Media';
+    protected static ?int $navigationSort = 3;
+
+    protected static ?string $navigationLabel = 'Galeri Foto & Dokumentasi';
 
     protected static ?string $modelLabel = 'Galeri';
 

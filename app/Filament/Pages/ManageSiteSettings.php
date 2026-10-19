@@ -22,11 +22,13 @@ class ManageSiteSettings extends Page implements HasForms
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-building-office-2';
 
-    protected static ?string $navigationLabel = 'Identitas Instansi';
+    protected static ?string $navigationLabel = 'Identitas & Pengaturan Web';
 
-    protected static ?string $title = 'Pengaturan Identitas Instansi';
+    protected static ?string $title = 'Identitas Instansi & Pengaturan Website';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Pengaturan';
+    protected static string | \UnitEnum | null $navigationGroup = 'Pengaturan Instansi';
+
+    protected static ?int $navigationSort = 1;
 
     protected string $view = 'filament.pages.manage-site-settings';
 

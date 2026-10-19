@@ -33,13 +33,13 @@ class StatistikResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-chart-pie';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Konten';
+    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Informasi';
 
-    protected static ?string $navigationLabel = 'Data & Statistik';
+    protected static ?string $navigationLabel = 'Data & Statistik Wilayah';
 
     protected static ?string $modelLabel = 'Data Statistik';
 
-    protected static ?string $pluralModelLabel = 'Katalog Data & Statistik';
+    protected static ?string $pluralModelLabel = 'Katalog Data & Statistik Wilayah';
 
     protected static ?int $navigationSort = 4;
 
@@ -105,6 +105,31 @@ class StatistikResource extends Resource
                                     ->placeholder('Contoh: BPS Kabupaten / Seksi Pelayanan')
                                     ->nullable(),
 
+                                FileUpload::make('berkas_spreadsheet')
+                                    ->label('Unggah Data Excel / CSV (Otomatis Jadi Grafik)')
+                                    ->helperText('Format .xlsx, .xls, .csv. Sistem otomatis mengonversi baris spreadsheet menjadi Grafik Interaktif & Tabel Data!')
+                                    ->acceptedFileTypes([
+                                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                        'application/vnd.ms-excel',
+                                        'text/csv',
+                                        'text/plain',
+                                    ])
+                                    ->disk('public')
+                                    ->directory('statistik-data')
+                                    ->maxSize(15360),
+
+                                Select::make('tipe_grafik')
+                                    ->label('Model Visualisasi Grafik')
+                                    ->options([
+                                        'bar' => '📊 Bar / Diagram Batang Vertikal',
+                                        'line' => '📈 Line / Diagram Garis Tren',
+                                        'pie' => '🥧 Pie / Diagram Lingkaran Proporsi',
+                                        'doughnut' => '🍩 Doughnut / Diagram Donat',
+                                        'polarArea' => '🧭 Polar Area / Radar Lingkar',
+                                    ])
+                                    ->default('bar')
+                                    ->required(),
+
                                 FileUpload::make('gambar_infografis')
                                     ->label('Gambar Infografis (Otomatis .webp)')
                                     ->image()
@@ -148,6 +173,12 @@ class StatistikResource extends Resource
                     ->label('Kategori')
                     ->badge()
                     ->sortable(),
+
+                TextColumn::make('tipe_grafik')
+                    ->label('Grafik')
+                    ->badge()
+                    ->color('warning')
+                    ->formatStateUsing(fn (?string $state) => strtoupper($state ?? 'BAR')),
 
                 TextColumn::make('periode')
                     ->label('Periode')

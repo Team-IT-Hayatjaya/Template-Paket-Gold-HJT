@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             PengaturanPpidSeeder::class,
             HalamanSeeder::class,
             NavigationMenuSeeder::class,
+            LayananSeeder::class,
+            StatistikSeeder::class,
         ]);
     }
 }

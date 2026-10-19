@@ -123,10 +123,11 @@
                             </div>
                             <span class="text-[11px] bg-surface-container-high px-2 py-0.5 rounded font-mono">0°34' LS, 117°01' BT</span>
                         </div>
-                        <div class="h-44 rounded-lg bg-cover bg-center relative overflow-hidden shadow-inner" style="background-image: url('{{ asset('images/placeholder-map.svg') }}')">
-                            <div class="absolute inset-0 bg-primary/40"></div>
-                            <div class="absolute bottom-2 left-2 right-2 bg-primary/90 text-on-primary p-2 rounded text-[11px]">
-                                Kantor Pemerintahan Terpadu
+                        <div class="h-48 rounded-lg bg-cover bg-center relative overflow-hidden shadow-inner border border-surface-container" style="background-image: url('{{ asset('images/peta-wilayah.jpg') }}')">
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+                            <div class="absolute bottom-2 left-2 right-2 bg-surface-container-lowest/95 backdrop-blur-xs text-primary p-2 rounded-lg text-[11px] font-medium border border-outline-variant/30 flex items-center justify-between">
+                                <span>Wilayah Pemerintahan Terpadu</span>
+                                <span class="text-secondary font-bold">Loa Kulu, Kukar</span>
                             </div>
                         </div>
                     </div>
@@ -184,18 +185,23 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
                 @forelse($pejabat as $p)
-                    <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-2xs border border-surface-container text-center flex flex-col items-center hover:shadow-md transition-shadow">
-                        <div class="w-24 h-24 rounded-full overflow-hidden mb-3 border-2 border-secondary bg-surface-container-high">
+                    <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-xs border border-surface-container text-center flex flex-col items-center hover:shadow-md hover:border-secondary/40 transition-all">
+                        <div class="w-28 h-28 rounded-full overflow-hidden mb-3 border-2 border-secondary shadow-sm bg-surface-container-high">
                             <img 
-                                src="{{ !empty($p['foto']) ? asset('storage/' . $p['foto']) : asset('images/placeholder-avatar.svg') }}" 
+                                src="{{ !empty($p['foto']) ? (str_starts_with($p['foto'], 'images/') || str_starts_with($p['foto'], 'http') ? asset($p['foto']) : asset('storage/' . $p['foto'])) : asset('images/pejabat-camat.jpg') }}" 
                                 alt="Foto {{ $p['nama'] }}" 
-                                class="w-full h-full object-cover object-top"
+                                class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
                                 loading="lazy"
                             />
                         </div>
                         <h3 class="font-title-lg text-sm font-bold text-primary leading-tight">{{ $p['nama'] }}</h3>
-                        <p class="font-label-sm text-xs font-semibold text-secondary mt-0.5">{{ $p['jabatan'] }}</p>
-                        <p class="text-[11px] text-on-surface-variant mt-1 font-mono">NIP: {{ $p['nip'] }}</p>
+                        <p class="font-label-sm text-xs font-semibold text-secondary mt-1">{{ $p['jabatan'] }}</p>
+                        @if(!empty($p['nip']))
+                            <p class="text-[11px] text-on-surface-variant mt-1 font-mono">NIP: {{ $p['nip'] }}</p>
+                        @endif
+                        @if(!empty($p['pendidikan']))
+                            <p class="text-[10px] text-on-surface-variant/80 mt-1 line-clamp-1" title="{{ $p['pendidikan'] }}">{{ $p['pendidikan'] }}</p>
+                        @endif
                     </div>
                 @empty
                     <div class="col-span-full p-8 text-center bg-surface-container-low rounded-xl">

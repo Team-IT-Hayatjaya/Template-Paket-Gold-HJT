@@ -99,39 +99,153 @@
                 </a>
             </div>
 
-            <!-- Grid Kartu Layanan Unggulan -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
-                <x-kartu-layanan 
-                    title="KTP Elektronik & KK"
-                    desc="Perekaman biometrik baru, penggantian KTP rusak/hilang, dan pembaruan Kartu Keluarga."
-                    icon="badge"
-                    badge="Standar 1 Hari"
-                    link="{{ route('layanan') }}#ktp"
-                />
+            <!-- Grid Kartu Layanan Unggulan (6 Cards, 3 Columns) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+                <!-- 1. Kependudukan & Catcapil -->
+                <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group border border-outline-variant/30">
+                    <div>
+                        <div class="flex items-center justify-between mb-space-sm">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                <span class="material-symbols-outlined text-[24px]">badge</span>
+                            </div>
+                            <span class="font-label-sm text-xs bg-surface-container-high px-2 py-0.5 rounded text-primary font-semibold">Gratis</span>
+                        </div>
+                        <h3 class="font-headline-md text-lg font-bold text-primary group-hover:text-secondary transition-colors">Kependudukan &amp; Catcapil</h3>
+                        <p class="font-body-sm text-sm text-on-surface-variant mt-1.5 leading-relaxed">
+                            Penerbitan KTP-el pemula, Kartu Identitas Anak (KIA), Kartu Keluarga baru/perubahan, dan kutipan akta kelahiran bekerja sama dengan Disdukcapil.
+                        </p>
+                    </div>
+                    <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between text-xs">
+                        <span class="text-on-surface-variant">Estimasi: 1 - 2 Hari</span>
+                        <a class="font-semibold text-secondary hover:text-primary flex items-center gap-1" href="{{ route('layanan') }}#ktp">
+                            <span>Buka Layanan</span>
+                            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+                </div>
 
-                <x-kartu-layanan 
-                    title="Izin Usaha Mikro (IUMK)"
-                    desc="Penerbitan surat rekomendasi legalitas usaha mikro dan permohonan NIB terpadu OSS."
-                    icon="storefront"
-                    badge="Gratis Tanpa Biaya"
-                    link="{{ route('layanan') }}#iumk"
-                />
+                <!-- 2. Izin Usaha Mikro -->
+                <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group border border-outline-variant/30">
+                    <div>
+                        <div class="flex items-center justify-between mb-space-sm">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                <span class="material-symbols-outlined text-[24px]">storefront</span>
+                            </div>
+                            <span class="font-label-sm text-xs bg-secondary-fixed/50 text-secondary px-2 py-0.5 rounded font-bold">Integrasi OSS</span>
+                        </div>
+                        <h3 class="font-headline-md text-lg font-bold text-primary group-hover:text-secondary transition-colors">Izin Usaha Mikro &amp; Kecil</h3>
+                        <p class="font-body-sm text-sm text-on-surface-variant mt-1.5 leading-relaxed">
+                            Penerbitan Rekomendasi IUMK, pendampingan legalitas NIB (Nomor Induk Berusaha), serta fasilitasi sertifikasi halal UMKM binaan.
+                        </p>
+                    </div>
+                    <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between text-xs">
+                        <span class="text-on-surface-variant">Estimasi: 1 Hari Kerja</span>
+                        <a class="font-semibold text-secondary hover:text-primary flex items-center gap-1" href="{{ route('layanan') }}#iumk">
+                            <span>Buka Layanan</span>
+                            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+                </div>
 
-                <x-kartu-layanan 
-                    title="Surat Keterangan Pindah"
-                    desc="Penerbitan SKPWNI antar desa, kecamatan, maupun luar kabupaten secara digital."
-                    icon="move_to_inbox"
-                    badge="Verifikasi Online"
-                    link="{{ route('layanan') }}#pindah"
-                />
+                <!-- 3. Surat Pengantar & Keterangan -->
+                <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group border border-outline-variant/30">
+                    <div>
+                        <div class="flex items-center justify-between mb-space-sm">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                <span class="material-symbols-outlined text-[24px]">description</span>
+                            </div>
+                            <span class="font-label-sm text-xs bg-surface-container-high px-2 py-0.5 rounded text-primary font-semibold">Reguler</span>
+                        </div>
+                        <h3 class="font-headline-md text-lg font-bold text-primary group-hover:text-secondary transition-colors">Surat Pengantar &amp; Keterangan</h3>
+                        <p class="font-body-sm text-sm text-on-surface-variant mt-1.5 leading-relaxed">
+                            Legalisasi Surat Keterangan Tidak Mampu (SKTM) untuk beasiswa &amp; KIS, Surat Keterangan Domisili Organisasi, dan Surat Pengantar Nikah.
+                        </p>
+                    </div>
+                    <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between text-xs">
+                        <span class="text-on-surface-variant">Estimasi: 30 Menit</span>
+                        <a class="font-semibold text-secondary hover:text-primary flex items-center gap-1" href="{{ route('layanan') }}#sktm">
+                            <span>Buka Layanan</span>
+                            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+                </div>
 
-                <x-kartu-layanan 
-                    title="Rekomendasi Bansos & SKTM"
-                    desc="Validasi kelayakan bantuan sosial terpadu DTKS dan surat keterangan tidak mampu."
-                    icon="volunteer_activism"
-                    badge="Prioritas Warga"
-                    link="{{ route('layanan') }}#bansos"
-                />
+                <!-- 4. Pertanahan & Registrasi Desa -->
+                <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group border border-outline-variant/30">
+                    <div>
+                        <div class="flex items-center justify-between mb-space-sm">
+                            <div class="w-12 h-12 rounded-lg bg-surface-container text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                <span class="material-symbols-outlined text-[24px]">landscape</span>
+                            </div>
+                            <span class="font-label-sm text-xs bg-surface-container-high px-2 py-0.5 rounded text-primary font-semibold">Seksi Trantib</span>
+                        </div>
+                        <h3 class="font-headline-md text-lg font-bold text-primary group-hover:text-secondary transition-colors">Pertanahan &amp; Registrasi Desa</h3>
+                        <p class="font-body-sm text-sm text-on-surface-variant mt-1.5 leading-relaxed">
+                            Verifikasi dan registrasi Surat Pernyataan Penguasaan Fisik Bidang Tanah (SPORADIK), rekomendasi alih fungsi lahan, dan mediasi batas desa.
+                        </p>
+                    </div>
+                    <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between text-xs">
+                        <span class="text-on-surface-variant">Estimasi: 3 - 5 Hari</span>
+                        <a class="font-semibold text-secondary hover:text-primary flex items-center gap-1" href="{{ route('layanan') }}#tanah">
+                            <span>Buka Layanan</span>
+                            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 5. Pengaduan Online SP4N LAPOR -->
+                <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group border border-outline-variant/30">
+                    <div>
+                        <div class="flex items-center justify-between mb-space-sm">
+                            <div class="w-12 h-12 rounded-lg bg-red-50 text-red-600 flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-[24px]">report</span>
+                            </div>
+                            <span class="font-label-sm text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded font-bold">Tindak Cepat</span>
+                        </div>
+                        <h3 class="font-headline-md text-lg font-bold text-primary group-hover:text-red-700 transition-colors">Pengaduan SP4N LAPOR!</h3>
+                        <p class="font-body-sm text-sm text-on-surface-variant mt-1.5 leading-relaxed">
+                            Sampaikan keluhan terkait pelayanan pamong, infrastruktur jalan, penerangan umum, dan ketertiban umum langsung ke Camat dan instansi terkait.
+                        </p>
+                    </div>
+                    <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between text-xs">
+                        <span class="text-on-surface-variant">Respon: &lt; 24 Jam Kerja</span>
+                        <a class="font-semibold text-red-700 hover:underline flex items-center gap-1" href="https://lapor.go.id" rel="noopener" target="_blank">
+                            <span>Kirim Aduan</span>
+                            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 6. Cek Status Pengajuan Dokumen PPID (Lacak Mandiri) -->
+                <div class="bg-gradient-to-br from-primary via-primary to-primary-container text-on-primary p-space-md rounded-xl shadow-md flex flex-col justify-between border-2 border-secondary/40">
+                    <div>
+                        <div class="flex items-center justify-between mb-space-sm">
+                            <div class="w-12 h-12 rounded-lg bg-secondary text-primary flex items-center justify-center font-bold">
+                                <span class="material-symbols-outlined text-[24px]">policy</span>
+                            </div>
+                            <span class="font-label-sm text-xs bg-secondary text-primary px-2 py-0.5 rounded font-extrabold uppercase tracking-wide">Lacak Mandiri</span>
+                        </div>
+                        <h3 class="font-headline-md text-lg font-bold text-on-primary">Cek Status Pengajuan Dokumen</h3>
+                        <p class="font-body-sm text-xs text-on-primary-container mt-1.5 leading-relaxed">
+                            Masukkan Nomor Registrasi / Resi berkas permohonan informasi PPID yang Anda terima saat mendaftar.
+                        </p>
+                        <form action="{{ route('ppid.lacak') }}" method="GET" class="mt-3 flex gap-1.5">
+                            <input 
+                                class="w-full bg-white text-slate-800 px-3 py-2 rounded-lg text-xs font-mono font-bold focus:outline-none focus:ring-2 focus:ring-secondary uppercase placeholder:normal-case placeholder:font-normal placeholder:text-slate-400" 
+                                placeholder="Contoh: PPID/KEC-LK/..." 
+                                type="text"
+                                name="nomor"
+                            />
+                            <button class="bg-secondary hover:bg-secondary-fixed text-primary px-3.5 py-2 rounded-lg font-bold text-xs shrink-0 transition-colors shadow-xs" type="submit">
+                                Cek
+                            </button>
+                        </form>
+                    </div>
+                    <div class="mt-space-md pt-space-xs flex items-center gap-1.5 text-on-primary-container text-[11px] border-t border-white/10">
+                        <span class="material-symbols-outlined text-[16px] text-secondary-fixed">verified</span>
+                        <span>Pelacakan real-time sistem PPID resmi.</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -154,16 +268,61 @@
                 </a>
             </div>
 
-            <!-- Grid Berita 3 Kolom -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
-                @forelse($beritaTerbaru as $item)
-                    <x-kartu-berita :berita="$item" />
-                @empty
-                    <div class="col-span-full p-8 text-center bg-surface-container-low rounded-xl">
-                        <p class="text-on-surface-variant text-sm">Belum ada berita yang dipublikasikan.</p>
+            @php
+                $firstBerita = $beritaTerbaru[0] ?? null;
+                $otherBerita = array_slice($beritaTerbaru, 1, 2);
+            @endphp
+
+            @if($firstBerita)
+                <!-- Featured News Item (Large Horizontal Card) -->
+                <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow grid grid-cols-1 md:grid-cols-12 border border-outline-variant/30 group">
+                    <div class="md:col-span-5 h-56 md:h-auto overflow-hidden">
+                        <img 
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                            src="{{ $firstBerita['gambar'] ?: asset('images/berita-musrenbang.jpg') }}" 
+                            alt="{{ $firstBerita['judul'] }}"
+                            loading="lazy"
+                        />
                     </div>
-                @endforelse
-            </div>
+                    <div class="md:col-span-7 p-space-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-space-sm mb-space-xs text-xs">
+                                <span class="font-label-sm text-[11px] bg-secondary-fixed text-primary px-space-xs py-0.5 rounded font-bold uppercase">{{ $firstBerita['kategori'] }}</span>
+                                <span class="font-body-sm text-on-surface-variant flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px] text-secondary">calendar_today</span>
+                                    {{ $firstBerita['tanggal'] }}
+                                </span>
+                            </div>
+                            <h3 class="font-headline-md text-lg sm:text-xl font-bold text-primary leading-snug group-hover:text-secondary transition-colors">
+                                <a href="{{ route('berita.detail', $firstBerita['slug']) }}">{{ $firstBerita['judul'] }}</a>
+                            </h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs line-clamp-3 leading-relaxed">
+                                {{ $firstBerita['ringkasan'] }}
+                            </p>
+                        </div>
+                        <div class="mt-space-md pt-space-xs border-t border-surface-container flex items-center justify-between text-xs">
+                            <span class="text-on-surface-variant">Oleh: {{ $firstBerita['penulis'] }}</span>
+                            <a class="font-semibold text-primary hover:text-secondary flex items-center gap-1 group-hover:translate-x-1 transition-transform" href="{{ route('berita.detail', $firstBerita['slug']) }}">
+                                <span>Baca Selengkapnya</span>
+                                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                @if(!empty($otherBerita))
+                    <!-- Sub-grid (2 Cards) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                        @foreach($otherBerita as $subItem)
+                            <x-kartu-berita :berita="$subItem" />
+                        @endforeach
+                    </div>
+                @endif
+            @else
+                <div class="col-span-full p-8 text-center bg-surface-container-low rounded-xl">
+                    <p class="text-on-surface-variant text-sm">Belum ada berita yang dipublikasikan.</p>
+                </div>
+            @endif
         </div>
     </section>
 

@@ -27,6 +27,10 @@ class Statistik extends Model
         'gambar_infografis',
         'alt_text',
         'berkas_pdf',
+        'berkas_spreadsheet',
+        'tipe_grafik',
+        'data_grafik',
+        'data_tabel',
         'is_active',
         'urutan',
     ];
@@ -35,6 +39,8 @@ class Statistik extends Model
         'tahun' => 'integer',
         'is_active' => 'boolean',
         'urutan' => 'integer',
+        'data_grafik' => 'array',
+        'data_tabel' => 'array',
     ];
 
     protected static function boot()
@@ -49,6 +55,14 @@ class Statistik extends Model
             if ($model->isDirty('gambar_infografis') && !empty($model->gambar_infografis)) {
                 $model->gambar_infografis = app(ImageConversionService::class)
                     ->convertStorageImageToWebp($model->gambar_infografis);
+            }
+
+            if (!empty($model->berkas_spreadsheet) && ($model->isDirty('berkas_spreadsheet') || empty($model->data_grafik))) {
+                $parsed = app(\App\Services\StatistikDataParserService::class)->parseFile($model->berkas_spreadsheet);
+                if (!empty($parsed['data_grafik'])) {
+                    $model->data_grafik = $parsed['data_grafik'];
+                    $model->data_tabel = $parsed['data_tabel'];
+                }
             }
         });
     }

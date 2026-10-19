@@ -261,6 +261,16 @@
                     @endif
                 </td>
             </tr>
+            @if($content_updates['quota_limit'] && isset($content_updates['quota_used']))
+                <tr>
+                    <td>Pemakaian Kuota Pembaruan Paket (berdasarkan log aktivitas)</td>
+                    <td class="text-right"><strong>{{ $content_updates['quota_used'] }} / {{ $content_updates['quota_limit'] }}</strong>
+                        @if($content_updates['quota_used'] > $content_updates['quota_limit'])
+                            <span style="color: #b91c1c;">(melebihi kuota)</span>
+                        @endif
+                    </td>
+                </tr>
+            @endif
         </tbody>
     </table>
 
@@ -290,6 +300,65 @@
         </tbody>
     </table>
 
+    @if(!empty($security))
+    <!-- 5. KEAMANAN SISTEM (PAKET GOLD) -->
+    <div class="section-title">5. Keamanan Sistem &amp; Ketahanan Portal</div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Indikator Keamanan</th>
+                <th width="30%" class="text-right">Nilai Periode Ini</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Percobaan login gagal ke panel admin</td>
+                <td class="text-right">{{ number_format($security['failed_logins'], 0, ',', '.') }} kali</td>
+            </tr>
+            <tr>
+                <td>Akun dikunci otomatis (gagal login berturut-turut)</td>
+                <td class="text-right">{{ $security['accounts_locked'] }} kali</td>
+            </tr>
+            <tr>
+                <td>Upaya login ke akun terkunci yang ditolak</td>
+                <td class="text-right">{{ $security['locked_login_blocked'] }} kali</td>
+            </tr>
+            <tr>
+                <td>Alamat IP baru diblokir (otomatis: {{ $security['ip_blocked_auto'] }})</td>
+                <td class="text-right">{{ $security['ip_blocked_new'] }} IP</td>
+            </tr>
+            <tr>
+                <td>Total daftar blokir IP yang masih aktif</td>
+                <td class="text-right">{{ $security['ip_blocked_active'] }} IP</td>
+            </tr>
+            <tr>
+                <td>Pemeriksaan integritas berkas (pemantau defacement SHA-256)</td>
+                <td class="text-right">{{ $security['integrity_checks'] }} kali</td>
+            </tr>
+            <tr>
+                <td>Insiden perubahan berkas terdeteksi</td>
+                <td class="text-right" style="{{ $security['integrity_incidents'] > 0 ? 'color:#b91c1c;font-weight:bold;' : '' }}">{{ $security['integrity_incidents'] }} insiden</td>
+            </tr>
+            <tr>
+                <td>Status integritas terakhir</td>
+                <td class="text-right">{{ $security['integrity_last_status'] }}{{ $security['integrity_last_checked_at'] ? ' ('.$security['integrity_last_checked_at'].')' : '' }}</td>
+            </tr>
+            <tr>
+                <td>Jadwal pencadangan (backup) otomatis</td>
+                <td class="text-right">{{ $security['backup_frequency'] }}</td>
+            </tr>
+        </tbody>
+    </table>
+    @if(count($security['top_failed_ips']))
+        <p style="font-size: 8.5pt; color: #475569; margin: 0 0 8px 0;">
+            Sumber IP dengan percobaan login gagal terbanyak:
+            @foreach($security['top_failed_ips'] as $row)
+                <code>{{ $row['ip'] }}</code> ({{ $row['jumlah'] }}x){{ !$loop->last ? ', ' : '.' }}
+            @endforeach
+        </p>
+    @endif
+    @endif
+
     <!-- TANDA TANGAN PENGESAHAN -->
     <table class="ttd-table">
         <tr>
@@ -310,7 +379,7 @@
 
     <!-- FOOTER CATATAN SISTEM -->
     <div class="footer-note">
-        Dokumen ini dibuat otomatis oleh Sistem Portal Resmi Instansi Pemerintah &bull; Paket SILVER &bull; PT Hayat Jaya Teknologi
+        Dokumen ini dibuat otomatis oleh Sistem Portal Resmi Instansi Pemerintah &bull; Paket {{ strtoupper(\App\Support\Package::current()) }} &bull; PT Hayat Jaya Teknologi
     </div>
 
 </body>

@@ -10,13 +10,13 @@ class LaporanBulanan extends Page
 {
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-chart-bar-square';
 
-    protected static ?string $navigationLabel = 'Laporan Bulanan';
+    protected static ?string $navigationLabel = 'Laporan Rekapitulasi PPID';
 
-    protected static ?string $title = 'Laporan Bulanan & Statistik Pengunjung';
+    protected static ?string $title = 'Laporan Rekapitulasi PPID & Statistik';
 
     protected static string | \UnitEnum | null $navigationGroup = 'Layanan PPID';
 
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 6;
 
     protected string $view = 'filament.pages.laporan-bulanan';
 

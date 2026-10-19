@@ -30,3 +30,13 @@ match ($backupFrequency) {
 
 Schedule::command('backup:clean')->dailyAt('01:00');
 
+/*
+| Paket Gold: pemantau defacement (checksum SHA-256) setiap jam.
+| Tidak dijadwalkan pada paket Silver.
+*/
+if (Package::has('security_hardening')) {
+    Schedule::command('security:integrity')
+        ->hourly()
+        ->withoutOverlapping();
+}
+

@@ -35,7 +35,9 @@ class BeritaResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-newspaper';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Konten';
+    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Informasi';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationLabel = 'Berita & Artikel';
 

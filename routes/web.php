@@ -40,6 +40,7 @@ Route::get('/robots.txt', [PublicPageController::class, 'robots'])->name('robots
 use App\Http\Controllers\PpidController;
 
 Route::get('/ppid/daftar-informasi', [PpidController::class, 'daftarInformasi'])->name('ppid.daftar-informasi');
+Route::get('/ppid/dokumen/{slug}', [PpidController::class, 'detailDokumen'])->name('ppid.dokumen.detail');
 Route::get('/ppid/permohonan', [PpidController::class, 'formPermohonan'])->name('ppid.permohonan');
 Route::post('/ppid/permohonan', [PpidController::class, 'kirimPermohonan'])
     ->middleware('throttle:10,1')

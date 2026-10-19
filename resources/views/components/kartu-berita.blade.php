@@ -15,7 +15,7 @@
     $kategori = $category ?? ($berita['kategori'] ?? 'Pemerintahan');
     $tanggal = $date ?? ($berita['tanggal'] ?? now()->translatedFormat('d F Y'));
     $ringkasan = $excerpt ?? ($berita['ringkasan'] ?? '');
-    $gambar = !empty($image) ? $image : (!empty($berita['gambar']) ? $berita['gambar'] : asset('images/placeholder-news.svg'));
+    $gambar = !empty($image) ? $image : (!empty($berita['gambar']) ? $berita['gambar'] : asset('images/berita-festival.jpg'));
     $linkUrl = !empty($url) && $url !== '#' ? $url : route('berita.detail', $slug);
 @endphp
 

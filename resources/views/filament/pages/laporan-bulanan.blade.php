@@ -115,6 +115,14 @@
                 <span>Total Pembaruan: <strong>{{ $report['content_updates']['total'] }}</strong></span>
                 <span>Batas Kuota Paket: <strong>{{ $report['content_updates']['quota_limit'] ?? 'Unlimited' }}</strong></span>
             </div>
+            @if($report['content_updates']['quota_limit'])
+                <div class="text-xs text-gray-600 dark:text-gray-400">
+                    Pemakaian Kuota (log aktivitas):
+                    <strong class="{{ $report['content_updates']['quota_used'] > $report['content_updates']['quota_limit'] ? 'text-danger-600' : 'text-primary-600 dark:text-primary-400' }}">
+                        {{ $report['content_updates']['quota_used'] }} / {{ $report['content_updates']['quota_limit'] }}
+                    </strong>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -150,4 +158,49 @@
             </table>
         </div>
     </div>
+
+    @if(!empty($report['security']))
+        @php $sec = $report['security']; @endphp
+        <!-- 4. KEAMANAN SISTEM (PAKET GOLD) -->
+        <section aria-labelledby="judul-keamanan" class="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-200 dark:border-gray-800 shadow-xs space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 id="judul-keamanan" class="text-base font-bold text-gray-900 dark:text-white">Keamanan Sistem &amp; Ketahanan Portal</h3>
+                <span @class([
+                    'text-xs font-semibold px-2.5 py-1 rounded-full',
+                    'bg-danger-50 text-danger-700' => $sec['integrity_last_status_code'] === 'modified',
+                    'bg-success-50 text-success-700' => $sec['integrity_last_status_code'] !== 'modified',
+                ])>
+                    Integritas: {{ $sec['integrity_last_status'] }}
+                </span>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                @foreach([
+                    ['Login Gagal', $sec['failed_logins'], 'percobaan'],
+                    ['Akun Dikunci', $sec['accounts_locked'], 'kali'],
+                    ['IP Diblokir (baru)', $sec['ip_blocked_new'], 'otomatis: '.$sec['ip_blocked_auto']],
+                    ['Blokir IP Aktif', $sec['ip_blocked_active'], 'alamat IP'],
+                    ['Pemeriksaan Integritas', $sec['integrity_checks'], 'kali (SHA-256)'],
+                    ['Insiden Defacement', $sec['integrity_incidents'], 'terdeteksi'],
+                    ['Akun Terkunci Saat Ini', $sec['currently_locked'], 'akun'],
+                    ['Backup Otomatis', $sec['backup_frequency'], 'jadwal'],
+                ] as [$label, $value, $hint])
+                    <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <div class="text-xs text-gray-500">{{ $label }}</div>
+                        <div class="text-lg font-bold text-gray-900 dark:text-white mt-1">{{ $value }}</div>
+                        <div class="text-[11px] text-gray-500">{{ $hint }}</div>
+                    </div>
+                @endforeach
+            </div>
+
+            @if(count($sec['top_failed_ips']))
+                <div class="text-xs text-gray-600 dark:text-gray-400">
+                    IP dengan login gagal terbanyak:
+                    @foreach($sec['top_failed_ips'] as $row)
+                        <code class="font-mono">{{ $row['ip'] }}</code> ({{ $row['jumlah'] }}x){{ !$loop->last ? ',' : '' }}
+                    @endforeach
+                </div>
+            @endif
+        </section>
+    @endif
 </x-filament-panels::page>

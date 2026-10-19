@@ -72,35 +72,33 @@
             <div class="lg:col-span-5 relative flex justify-center">
                 <div class="relative w-full max-w-sm">
                     <!-- Decorative Backdrop Shape -->
-                    <div class="absolute -top-3 -left-3 w-full h-full bg-secondary-fixed-dim/40 rounded-xl"></div>
+                    <div class="absolute -top-4 -left-4 w-full h-full bg-secondary-fixed-dim/40 rounded-xl"></div>
                     <div class="relative bg-surface-container-lowest rounded-xl overflow-hidden shadow-xl border border-outline-variant/30">
-                        <div class="w-full h-80 sm:h-96 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent relative flex items-end">
-                            <img 
-                                class="w-full h-full object-cover object-top absolute inset-0" 
-                                alt="Potret resmi Pimpinan {{ $siteSetting->institution_name ?? 'Instansi' }}" 
-                                src="{{ $portraitUrl ?: asset('images/placeholder-avatar.svg') }}"
-                                loading="lazy"
-                            />
-                            <div class="relative z-10 p-space-md bg-gradient-to-t from-primary via-primary/90 to-transparent w-full text-on-primary">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <h3 class="font-title-lg text-title-lg text-secondary-fixed font-bold">{{ $pimpinanName }}</h3>
-                                        <p class="font-body-sm text-body-sm text-on-primary-container">{{ $pimpinanTitle }}</p>
-                                    </div>
-                                    <div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0">
-                                        <span class="material-symbols-outlined text-[20px]">account_balance</span>
-                                    </div>
+                        <img 
+                            class="w-full h-96 object-cover object-top" 
+                            alt="Potret resmi Pimpinan {{ $siteSetting->institution_name ?? 'Instansi' }}" 
+                            src="{{ $portraitUrl ?: asset('images/camat-portrait.jpg') }}"
+                            loading="lazy"
+                        />
+                        <div class="p-space-md bg-primary text-on-primary">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-title-lg text-title-lg text-secondary-fixed font-bold">{{ $pimpinanName }}</h3>
+                                    <p class="font-body-sm text-body-sm text-on-primary-container">{{ $pimpinanTitle }}</p>
+                                </div>
+                                <div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-[20px]">account_balance</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Quick Badge Floating -->
-                    <div class="absolute bottom-2 right-2 sm:-bottom-4 sm:-right-4 bg-surface-container-lowest p-space-sm rounded-lg shadow-lg flex items-center gap-space-sm max-w-xs border border-outline-variant/30">
-                        <span class="material-symbols-outlined text-secondary text-[26px]">verified_user</span>
+                    <div class="absolute -bottom-4 -right-4 bg-surface-container-lowest p-space-sm rounded-lg shadow-lg flex items-center gap-space-sm max-w-xs border border-outline-variant/30">
+                        <span class="material-symbols-outlined text-secondary text-[24px]">verified_user</span>
                         <div class="text-left">
                             <div class="font-label-sm text-label-sm text-primary font-bold">Pelayanan Ramah &amp; Bebas Pungli</div>
-                            <div class="font-body-sm text-[11px] text-on-surface-variant">Standar Pelayanan Publik Terpadu</div>
+                            <div class="font-body-sm text-body-sm text-on-surface-variant">Sesuai Perbup Kukar No. 24/2023</div>
                         </div>
                     </div>
                 </div>

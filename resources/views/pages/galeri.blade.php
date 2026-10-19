@@ -16,7 +16,7 @@
         <div class="space-y-space-xs max-w-3xl">
             <div class="inline-flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-full text-secondary font-label-sm text-label-sm font-bold uppercase tracking-wider">
                 <span class="material-symbols-outlined text-[16px]">photo_camera</span>
-                <span>Dokumentasi Visual Kedinasan</span>
+                <span>Dokumentasi Foto Kedinasan</span>
             </div>
             <h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">
                 Galeri Kegiatan & Pelayanan Publik
@@ -63,7 +63,7 @@
                         </h3>
                     </div>
                     <div class="pt-space-sm border-t border-surface-container flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
-                        <span>Humas & Dokumentasi</span>
+                        <span>Humas & Dokumentasi Foto</span>
                         <span class="text-secondary font-bold text-label-sm">Tersimpan di Arsip</span>
                     </div>
                 </div>

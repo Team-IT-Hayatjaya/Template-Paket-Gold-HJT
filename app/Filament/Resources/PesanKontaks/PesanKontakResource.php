@@ -25,17 +25,28 @@ class PesanKontakResource extends Resource
 {
     protected static ?string $model = PesanKontak::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-envelope';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Layanan & Komunikasi';
+    protected static string | \UnitEnum | null $navigationGroup = 'Pelayanan Warga';
 
-    protected static ?string $navigationLabel = 'Pesan Masuk (Kontak)';
+    protected static ?string $navigationLabel = 'Pesan & Aspirasi Warga';
 
-    protected static ?string $modelLabel = 'Pesan Masuk';
+    protected static ?string $modelLabel = 'Pesan Warga';
 
-    protected static ?string $pluralModelLabel = 'Kotak Masuk Kontak & Pengaduan';
+    protected static ?string $pluralModelLabel = 'Kotak Masuk Pesan & Aspirasi Warga';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationBadge(): ?string
+    {
+        $count = PesanKontak::where('is_read', false)->count();
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'danger';
+    }
 
     public static function form(Schema $schema): Schema
     {

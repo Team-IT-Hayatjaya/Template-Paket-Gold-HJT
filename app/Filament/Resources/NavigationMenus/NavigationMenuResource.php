@@ -31,7 +31,9 @@ class NavigationMenuResource extends Resource
 
     protected static string | \UnitEnum | null $navigationGroup = 'Tampilan & Navigasi';
 
-    protected static ?string $navigationLabel = 'Menu Navigasi';
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationLabel = 'Menu Navigasi Portal';
 
     protected static ?string $modelLabel = 'Menu Navigasi';
 

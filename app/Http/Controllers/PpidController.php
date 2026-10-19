@@ -78,6 +78,26 @@ class PpidController extends Controller
     }
 
     /**
+     * Halaman Pratinjau Dokumen Informasi Publik (Embedded PDF Viewer).
+     */
+    public function detailDokumen(string $slug)
+    {
+        $dokumen = DokumenInformasi::where('slug', $slug)
+            ->where('is_published', true)
+            ->firstOrFail();
+
+        $dokumen->increment('dilihat');
+
+        $dokumenTerkait = DokumenInformasi::where('is_published', true)
+            ->where('id', '!=', $dokumen->id)
+            ->where('kategori_id', $dokumen->kategori_id)
+            ->take(5)
+            ->get();
+
+        return view('pages.ppid.dokumen-detail', compact('dokumen', 'dokumenTerkait'));
+    }
+
+    /**
      * Halaman Formulir Permohonan Informasi Publik.
      */
     public function formPermohonan()

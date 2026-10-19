@@ -140,4 +140,84 @@ class ContentPagesTest extends TestCase
         $response->assertRedirect('/kontak');
         $response->assertSessionHasErrors(['nama', 'email', 'topik', 'pesan']);
     }
+
+    /**
+     * Uji katalog data statistik dapat diakses tanpa query conflict DISTINCT MySQL.
+     */
+    public function test_halaman_data_statistik_dapat_diakses_tanpa_error_query(): void
+    {
+        $response = $this->get('/data-statistik');
+
+        $response->assertStatus(200);
+        $response->assertSee('Katalog Data &amp; Statistik', false);
+        $response->assertSee('Semua Kategori');
+    }
+
+    /**
+     * Uji halaman detail statistik memuat grafik interaktif dan tabel.
+     */
+    public function test_halaman_detail_statistik_memuat_grafik_dan_tabel(): void
+    {
+        $stat = \App\Models\Statistik::create([
+            'judul' => 'Statistik Uji Kependudukan',
+            'slug' => 'statistik-uji-kependudukan',
+            'kategori' => 'Kependudukan',
+            'periode' => 'Tahun 2026',
+            'tahun' => 2026,
+            'is_active' => true,
+            'tipe_grafik' => 'bar',
+            'data_grafik' => [
+                'labels' => ['Desa A', 'Desa B'],
+                'datasets' => [
+                    [
+                        'label' => 'Jumlah',
+                        'data' => [100, 200],
+                    ],
+                ],
+                'summary' => [
+                    'total' => 300,
+                    'rata_rata' => 150,
+                    'tertinggi' => 200,
+                    'terendah' => 100,
+                    'jumlah_baris' => 2,
+                ],
+            ],
+            'data_tabel' => [
+                'headers' => ['Desa', 'Jumlah'],
+                'rows' => [
+                    ['Desa A', 100],
+                    ['Desa B', 200],
+                ],
+            ],
+        ]);
+
+        $response = $this->get('/data-statistik/' . $stat->slug);
+
+        $response->assertStatus(200);
+        $response->assertSee('Visualisasi Grafik Interaktif');
+        $response->assertSee('canvasStatistik');
+        $response->assertSee('dynamicDataTable');
+        $response->assertSee('Desa A');
+    }
+
+    /**
+     * Uji parser service mengolah baris spreadsheet menjadi dataset grafik.
+     */
+    public function test_parser_service_mengolah_data_tabular_ke_grafik(): void
+    {
+        $parser = new \App\Services\StatistikDataParserService();
+        $rawRows = [
+            ['Kecamatan', 'Produksi Padi (Ton)', 'Produksi Jagung (Ton)'],
+            ['Wilayah 1', 1200, 450],
+            ['Wilayah 2', 1500, 600],
+        ];
+
+        $result = $parser->processRawRows($rawRows);
+
+        $this->assertNotNull($result['data_grafik']);
+        $this->assertCount(2, $result['data_grafik']['labels']);
+        $this->assertEquals(['Wilayah 1', 'Wilayah 2'], $result['data_grafik']['labels']);
+        $this->assertCount(2, $result['data_grafik']['datasets']);
+        $this->assertEquals(2700, $result['data_grafik']['summary']['total']);
+    }
 }

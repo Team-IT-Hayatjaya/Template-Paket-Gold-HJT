@@ -32,15 +32,15 @@ class LayananResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-briefcase';
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Publikasi & Konten';
+    protected static string | \UnitEnum | null $navigationGroup = 'Pelayanan Warga';
 
-    protected static ?string $navigationLabel = 'Layanan Publik';
+    protected static ?string $navigationLabel = 'Layanan Publik (PATEN)';
 
-    protected static ?string $modelLabel = 'Layanan';
+    protected static ?string $modelLabel = 'Layanan Publik';
 
-    protected static ?string $pluralModelLabel = 'Standar Layanan Publik';
+    protected static ?string $pluralModelLabel = 'Daftar Layanan Publik (PATEN)';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

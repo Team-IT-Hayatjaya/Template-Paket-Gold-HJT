@@ -56,6 +56,8 @@ class ContentQuotaService
         $limit = Package::limit('content_updates_per_month');
         $limitLabel = $limit === null ? 'Tanpa Batas' : (string) $limit;
 
+        $percentage = $limit ? (int) min(100, round(($used / max(1, $limit)) * 100)) : 0;
+
         return [
             'used' => $used,
             'limit' => $limit,
@@ -63,6 +65,10 @@ class ContentQuotaService
             'display' => "{$used} dari {$limitLabel}",
             'package' => Package::current(),
             'is_exceeded' => $limit !== null && $used > $limit,
+            'remaining' => $limit === null ? null : max(0, $limit - $used),
+            'percentage' => $percentage,
+            'is_near_limit' => $limit !== null && $used >= (int) ceil($limit * 0.8),
+            'period_label' => now()->translatedFormat('F Y'),
         ];
     }
 }

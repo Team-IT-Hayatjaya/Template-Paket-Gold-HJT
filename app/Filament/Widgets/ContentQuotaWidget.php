@@ -25,11 +25,25 @@ class ContentQuotaWidget extends BaseWidget
         $totalHalaman = Halaman::count();
         $totalDokumen = DokumenInformasi::count();
 
+        $quotaStat = Stat::make('Pembaruan Konten Bulan Ini', $display)
+            ->description("Paket " . ucfirst($quota['package']) . " (Batas: {$limitText})")
+            ->descriptionIcon('heroicon-m-arrow-trending-up')
+            ->color($quota['is_exceeded'] ? 'warning' : 'primary');
+
+        // Paket Gold: pemantau kuota (sisa, persentase, dan progres visual)
+        if (Package::has('content_quota_monitor') && $limitVal !== null) {
+            $quotaStat
+                ->value("{$quota['used']} / {$limitText}")
+                ->description($quota['is_exceeded']
+                    ? "Kuota terlampaui ({$quota['percentage']}%) · Paket " . ucfirst($quota['package'])
+                    : "Sisa {$quota['remaining']} pembaruan · {$quota['percentage']}% terpakai")
+                ->descriptionIcon($quota['is_exceeded'] ? 'heroicon-m-exclamation-triangle' : 'heroicon-m-chart-bar')
+                ->chart([0, $quota['percentage'], 100])
+                ->color($quota['is_exceeded'] ? 'danger' : ($quota['is_near_limit'] ? 'warning' : 'success'));
+        }
+
         return [
-            Stat::make('Pembaruan Konten Bulan Ini', $display)
-                ->description("Paket " . ucfirst($quota['package']) . " (Batas: {$limitText})")
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->color($quota['is_exceeded'] ? 'warning' : 'primary'),
+            $quotaStat,
 
             Stat::make('Publikasi Berita', (string) $totalBerita)
                 ->description('Total berita terbit & draft')
