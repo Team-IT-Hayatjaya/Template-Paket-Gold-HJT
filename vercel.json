@@ -17,6 +17,18 @@
       "dest": "/public/css/$1"
     },
     {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/public/images/$1"
+    },
+    {
+      "src": "/fonts/(.*)",
+      "dest": "/public/fonts/$1"
+    },
+    {
       "src": "/uploads/(.*)",
       "dest": "/public/uploads/$1"
     },
@@ -37,6 +49,8 @@
   "outputDirectory": "public",
   "env": {
     "APP_ENV": "production",
+    "APP_KEY": "base64:SmdaQpG8y5cxK49o8+mcbaO9NYxzBzEHhXVpBTZS5zU=",
+    "SITE_PACKAGE": "gold",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",

@@ -28,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->renderHook(PanelsRenderHook::HEAD_END, fn () => view('filament.components.gold-theme'))
             ->login(\App\Filament\Auth\Login::class)
             ->profile()
             ->multiFactorAuthentication([

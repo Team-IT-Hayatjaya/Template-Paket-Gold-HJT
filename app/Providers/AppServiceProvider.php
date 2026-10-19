@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (app()->environment('production') || isset($_SERVER['VERCEL']) || env('VERCEL')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         // Event Subscriber for Activity Log on Authentication
         Event::subscribe(LogAuthenticationActivity::class);
 
